@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">sweepbomb</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_set">SetAc</string>
+    <string name="title_activity_store">StoreAc</string>
+    <string name="title_activity_menu">MenuAc</string>
+    <string name="title_activity_game">GameAc</string>
+    <string name="title_activity_backpack">BackpackAc</string>
 </resources>

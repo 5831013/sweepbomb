@@ -18,6 +18,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SetAc"
+            android:label="@string/title_activity_set"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StoreAc"
+            android:label="@string/title_activity_store"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuAc"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GameAc"
+            android:label="@string/title_activity_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BackpackAc"
+            android:label="@string/title_activity_backpack"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

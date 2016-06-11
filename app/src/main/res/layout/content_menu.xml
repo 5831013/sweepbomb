@@ -9,36 +9,34 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.user.sweepbomb.MainAc"
-    tools:showIn="@layout/activity_main">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="80sp"
-        android:text="踩地雷!"
-        android:gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
-
-    <Button android:id="@+id/startBu"
+    tools:context="com.example.user.sweepbomb.MenuAc"
+    tools:showIn="@layout/activity_menu">
+    <Button android:id="@+id/normalGaBu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="Start"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
-    <Button android:id="@+id/setBu"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="設定"
-        android:layout_below="@+id/startBu"
+        android:textSize="60sp"
+        android:text="一般模式"
         />
 
+    <Button android:id="@+id/timeGaBu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:text="限時模式"
+        android:layout_below="@+id/normalGaBu"
+        />
+    <Button android:id="@+id/backpackBu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:text="卡片背包"
+        android:layout_below="@+id/timeGaBu"
+        />
+    <Button android:id="@+id/storeBu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:text="商店"
+        android:layout_below="@+id/backpackBu"
+        />
 </RelativeLayout>
