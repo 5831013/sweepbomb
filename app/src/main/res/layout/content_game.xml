@@ -53,6 +53,9 @@
         android:layout_below="@+id/gaCard1"
         android:layout_centerHorizontal="true" />
 
+
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
