@@ -46,13 +46,14 @@
         android:layout_alignParentEnd="true" />
     </LinearLayout>
 
-    <Button android:id="@+id/gaA"
-        android:layout_width="300sp"
-        android:layout_height="300sp"
-        android:text="遊戲區"
-        android:layout_below="@+id/gaCard1"
-        android:layout_centerHorizontal="true" />
 
+    <LinearLayout android:id="@+id/gaLL"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </LinearLayout>
+
+   
 
 
 
