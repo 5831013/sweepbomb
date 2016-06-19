@@ -1,6 +1,7 @@
 package com.example.user.sweepbomb;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,11 @@ public class GameAc extends AppCompatActivity {
 
 
     Grid[][] block = new Grid[7][5];
+    Game game;
+    Button flagBu;
+    int low,ver;
+    int flag=0;
+
 
 
     @Override
@@ -22,7 +28,7 @@ public class GameAc extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        int low,ver;
+
         LinearLayout layout;
         LinearLayout a[]=new LinearLayout[8];
         a[0]= (LinearLayout) findViewById(R.id.ga1);
@@ -43,12 +49,25 @@ public class GameAc extends AppCompatActivity {
             }
         }
         Game game=new Game(block);
-         game.star();
 
+
+        game.star();
+        flagBu=(Button)findViewById(R.id.flagBu);
+        flagBu.setOnClickListener(setFlag);
 
 
 
     }
+
+    private View.OnClickListener setFlag = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+         flag=1;
+        }
+    };
+
+
+
 
     public class Act implements View.OnClickListener {
         int low;
@@ -61,8 +80,25 @@ public class GameAc extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int vi = block[low][ver].view;
-            block[low][ver].button.setText(""+vi);
+            if(flag==1){
+                block[low][ver].button.setText("@");
+                flag=0;
+                block[low][ver].button.setBackgroundColor(Color.GRAY);
+            }
+            else if(vi==-1) {
+                block[low][ver].button.setText("*");
 
+            }
+
+            else if(vi==0) {
+                block[low][ver].button.setText(" ");
+                block[low][ver].button.setBackgroundColor(Color.GRAY);
+            }
+
+            else {
+                block[low][ver].button.setText("" + vi);
+                block[low][ver].button.setBackgroundColor(Color.GRAY);
+            }
         }
 
     }
@@ -78,11 +114,15 @@ public class GameAc extends AppCompatActivity {
 
     }
     public class Game{
+
+
+
         Grid[][] grid;
+
         public Game (Grid grid[][]){
             this.grid=grid;
 
-      }
+         }
         void star(){
            for(int i=0;i<8;i++){
                int rand=(int)(Math.random()*34);
@@ -103,6 +143,24 @@ public class GameAc extends AppCompatActivity {
 
 
         }
+        void openBlank(int raw,int ver){
+            if(grid[raw][ver].view==0){
+
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
          int decideView(int raw,int ver){
             int count=0;
            if(0<raw&&raw<6&&0<ver&&ver<4){
