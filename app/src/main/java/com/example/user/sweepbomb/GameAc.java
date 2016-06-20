@@ -16,11 +16,11 @@ public class GameAc extends AppCompatActivity {
 
     Grid[][] block = new Grid[7][5];
     Game game;
-    Button flagBu;
+    Button flagBu,resetBu,cardBu1,cardBu2,cardBu3;
     int low,ver;
-    int flag=0;
-
-
+    boolean flag =false;
+    boolean card = false;
+    boolean end =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class GameAc extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         LinearLayout layout;
-        LinearLayout a[]=new LinearLayout[8];
+        LinearLayout a[]=new LinearLayout[7];
         a[0]= (LinearLayout) findViewById(R.id.ga1);
         a[1]= (LinearLayout) findViewById(R.id.ga2);
         a[2]= (LinearLayout) findViewById(R.id.ga3);
@@ -40,6 +40,9 @@ public class GameAc extends AppCompatActivity {
         a[6]= (LinearLayout) findViewById(R.id.ga7);
 
         layout = (LinearLayout) findViewById(R.id.gaLL);
+
+
+
         for(low=0;low<7;low++){
             for(ver=0;ver<5;ver++){
                 Button button=new Button(this);
@@ -49,11 +52,20 @@ public class GameAc extends AppCompatActivity {
             }
         }
         Game game=new Game(block);
-
-
         game.star();
         flagBu=(Button)findViewById(R.id.flagBu);
         flagBu.setOnClickListener(setFlag);
+        resetBu=(Button)findViewById(R.id.resetBu);
+        resetBu.setOnClickListener(setRest);
+
+        cardBu1=(Button)findViewById(R.id.gaCard1);
+        cardBu1.setOnClickListener(setCard1);
+
+        cardBu2=(Button)findViewById(R.id.gaCard2);
+        cardBu2.setOnClickListener(setCard2);
+
+        cardBu3=(Button)findViewById(R.id.gaCard3);
+        cardBu3.setOnClickListener(setCard3);
 
 
 
@@ -62,10 +74,56 @@ public class GameAc extends AppCompatActivity {
     private View.OnClickListener setFlag = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-         flag=1;
+         flag=true;
         }
     };
 
+    private View.OnClickListener setRest = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+        }
+    };
+    private View.OnClickListener setCard1 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+           /* int count=1,i,j,;
+
+            int rand=(int)(Math.random()*game.count);
+            for(i=0;i<7;i++){
+                for(j=0;j<5;j++){
+                    if(block[i][j].view==-1&&count==rand){
+                        block[i][j].status=-1;
+                        block[i][j].button.setText("@");
+                    }
+                    else if(block[i][j].view==-1) count++;
+
+
+
+                }
+            }
+*/
+
+
+
+        }
+    };
+    private View.OnClickListener setCard2 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            flag=true;
+
+        }
+    };
+
+    private View.OnClickListener setCard3 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            flag=true;
+
+        }
+    };
 
 
 
@@ -80,69 +138,63 @@ public class GameAc extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int vi = block[low][ver].view;
-            if(flag==1){
+            if(flag==true&&block[low][ver].status==0){
                 block[low][ver].button.setText("@");
-                flag=0;
-                block[low][ver].button.setBackgroundColor(Color.GRAY);
+                block[low][ver].status=-1;
+                flag=false;
             }
-            else if(vi==-1) {
+            else if(vi==-1&&block[low][ver].status==0) {
                 block[low][ver].button.setText("*");
-
+                block[low][ver].button.setBackgroundColor(Color.RED);
+                block[low][ver].status=1;
             }
-
-            else if(vi==0) {
-                block[low][ver].button.setText(" ");
-                block[low][ver].button.setBackgroundColor(Color.GRAY);
-            }
-
-            else {
+            else if(block[low][ver].status==0){
                 block[low][ver].button.setText("" + vi);
                 block[low][ver].button.setBackgroundColor(Color.GRAY);
+                block[low][ver].status=1;
             }
         }
 
     }
     public class Grid{
         Button button;
-        int i;
-        int status=0;
+        public int status=0;
         public int view=0;
         public Grid (Button button){
             this.button=button;
         }
 
-
     }
+
+
+
     public class Game{
-
-
-
         Grid[][] grid;
 
         public Game (Grid grid[][]){
             this.grid=grid;
-
          }
+
         void star(){
+
            for(int i=0;i<8;i++){
                int rand=(int)(Math.random()*34);
-               grid[rand/5][rand%5].view = -1;
+                if(grid[rand/5][rand%5].view==0){
+                    grid[rand/5][rand%5].view =-1;
+                }
+
 
            }
             for(int i=0;i<7;i++){
                 for(int j=0;j<5;j++){
                     if(grid[i][j].view==0){
                         grid[i][j].view= this.decideView(i, j);
-
                     }
-
                 }
-
-
             }
-
-
         }
+
+
         void openBlank(int raw,int ver){
             if(grid[raw][ver].view==0){
 

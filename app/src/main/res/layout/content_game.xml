@@ -44,6 +44,24 @@
         android:layout_above="@+id/gaCard3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+
+        <Button android:id="@+id/resetBu"
+         android:layout_width="80sp"
+         android:layout_height="80sp"
+         android:text="重製"
+         />
+
+
+
+
+
+
+
+
+
+
+
     </LinearLayout>
 
 
