@@ -93,7 +93,7 @@ public class GameAc extends AppCompatActivity {
     public class Card implements View.OnClickListener {
 
 
-        int value,i,j,rand,count=0;
+        int value,i,j,rand,count=0,count2;
         public Card(int value){
            super();
            this.value=value;
@@ -104,7 +104,8 @@ public class GameAc extends AppCompatActivity {
         public void onClick(View v) {
            boolean have=true;
             if(value==1){
-                while(have&&count<2){
+                while(have&&count<2&&count2<12){
+                    count2++;
                     for(i=0;i<7;i++){
                         for(j=0;j<5;j++){
                             rand=(int)(Math.random()*7);
@@ -121,7 +122,8 @@ public class GameAc extends AppCompatActivity {
                 }
             }
             else if(value==2){
-                while(have&&count<2){
+                while(have&&count<2&&count2<12){
+                    count2++;
                     for(i=0;i<7;i++){
                         for(j=0;j<5;j++){
                             rand=(int)(Math.random()*7);
@@ -136,6 +138,7 @@ public class GameAc extends AppCompatActivity {
                             }
                         }
                     }
+
                 }
 
 
