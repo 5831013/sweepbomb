@@ -19,7 +19,7 @@ public class GameAc extends AppCompatActivity {
     Button flagBu,resetBu,cardBu1,cardBu2,cardBu3;
     int low,ver;
     boolean flag =false;
-    boolean card = false;
+    int card = 0;
     boolean end =false;
 
     @Override
@@ -59,14 +59,16 @@ public class GameAc extends AppCompatActivity {
         resetBu.setOnClickListener(setRest);
 
         cardBu1=(Button)findViewById(R.id.gaCard1);
-        cardBu1.setOnClickListener(setCard1);
+        cardBu1.setOnClickListener(new Card(1));
+        cardBu1.setText("Dog");
 
         cardBu2=(Button)findViewById(R.id.gaCard2);
-        cardBu2.setOnClickListener(setCard2);
+        cardBu2.setOnClickListener(new Card(2));
+        cardBu2.setText("Cat");
 
         cardBu3=(Button)findViewById(R.id.gaCard3);
-        cardBu3.setOnClickListener(setCard3);
-
+        cardBu3.setOnClickListener(new Card(3));
+        cardBu3.setText("Eye");
 
 
     }
@@ -78,6 +80,7 @@ public class GameAc extends AppCompatActivity {
         }
     };
 
+
     private View.OnClickListener setRest = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -85,45 +88,78 @@ public class GameAc extends AppCompatActivity {
 
         }
     };
-    private View.OnClickListener setCard1 = new View.OnClickListener() {
+
+
+    public class Card implements View.OnClickListener {
+
+
+        int value,i,j,rand,count=0;
+        public Card(int value){
+           super();
+           this.value=value;
+       }
+
+
         @Override
         public void onClick(View v) {
-           /* int count=1,i,j,;
-
-            int rand=(int)(Math.random()*game.count);
-            for(i=0;i<7;i++){
-                for(j=0;j<5;j++){
-                    if(block[i][j].view==-1&&count==rand){
-                        block[i][j].status=-1;
-                        block[i][j].button.setText("@");
+           boolean have=true;
+            if(value==1){
+                while(have&&count<2){
+                    for(i=0;i<7;i++){
+                        for(j=0;j<5;j++){
+                            rand=(int)(Math.random()*7);
+                            if(block[i][j].status==0&&block[i][j].view==-1&&rand==0){
+                                block[i][j].status=-1;
+                                block[i][j].button.setText("@");
+                                count++;
+                                i=7;
+                                j=5;
+                                have=false;
+                            }
+                        }
                     }
-                    else if(block[i][j].view==-1) count++;
-
-
-
                 }
             }
-*/
+            else if(value==2){
+                while(have&&count<2){
+                    for(i=0;i<7;i++){
+                        for(j=0;j<5;j++){
+                            rand=(int)(Math.random()*7);
+                            if(block[i][j].status==0&&block[i][j].view==0&&rand==0){
+                                block[i][j].status=1;
+                                block[i][j].button.setText("0");
+                                block[i][j].button.setBackgroundColor(Color.GRAY);
+                                count++;
+                                i=7;
+                                j=5;
+                                have=false;
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+            else if(value==3){
+                if(count<2){
+                    card=3;
+                    count++;
+                }
+
+
+
+            }
 
 
 
         }
-    };
-    private View.OnClickListener setCard2 = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            flag=true;
 
-        }
-    };
 
-    private View.OnClickListener setCard3 = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            flag=true;
+    }
 
-        }
-    };
+
+
 
 
 
@@ -138,24 +174,43 @@ public class GameAc extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int vi = block[low][ver].view;
-            if(flag==true&&block[low][ver].status==0){
-                block[low][ver].button.setText("@");
-                block[low][ver].status=-1;
-                flag=false;
-            }
-            else if(vi==-1&&block[low][ver].status==0) {
-                block[low][ver].button.setText("*");
-                block[low][ver].button.setBackgroundColor(Color.RED);
-                block[low][ver].status=1;
-            }
-            else if(block[low][ver].status==0){
-                block[low][ver].button.setText("" + vi);
-                block[low][ver].button.setBackgroundColor(Color.GRAY);
-                block[low][ver].status=1;
-            }
+           if(end==false){
+               if(card==3&&block[low][ver].status==0){
+                   if(block[low][ver].view==-1)block[low][ver].button.setText("*");
+                   else
+                       block[low][ver].button.setText(""+block[low][ver].view);
+                   card=0;
+               }
+
+               else if(flag==true&&block[low][ver].status==0){
+                   block[low][ver].button.setText("@");
+                   block[low][ver].status=-1;
+                   flag=false;
+               }
+               else if(vi==-1&&block[low][ver].status==0) {
+                   block[low][ver].button.setText("*");
+                   block[low][ver].button.setBackgroundColor(Color.RED);
+                   block[low][ver].status=1;
+                   end=true;
+               }
+               else if(block[low][ver].status==0){
+                   block[low][ver].button.setText("" + vi);
+                   block[low][ver].button.setBackgroundColor(Color.GRAY);
+                   block[low][ver].status=1;
+               }
+
+
+
+
+
+
+           }
+
         }
 
     }
+
+
     public class Grid{
         Button button;
         public int status=0;
@@ -176,16 +231,17 @@ public class GameAc extends AppCompatActivity {
          }
 
         void star(){
-
-           for(int i=0;i<8;i++){
-               int rand=(int)(Math.random()*34);
+            int i=0;
+            while(i<7){
+                int rand=(int)(Math.random()*34);
                 if(grid[rand/5][rand%5].view==0){
                     grid[rand/5][rand%5].view =-1;
+                    i++;
                 }
 
+            }
 
-           }
-            for(int i=0;i<7;i++){
+            for(i=0;i<7;i++){
                 for(int j=0;j<5;j++){
                     if(grid[i][j].view==0){
                         grid[i][j].view= this.decideView(i, j);
